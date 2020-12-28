@@ -5,6 +5,8 @@ var itemList = document.getElementById("items");
 form.addEventListener("submit", addItem);
 //Delete event
 itemList.addEventListener("click", removeItem);
+//Filter event
+filter.addEventListener("keyup", filterItems);
 //Add item
 function addItem(e) {
   e.preventDefault();
@@ -38,4 +40,22 @@ function removeItem(e) {
       itemList.removeChild(li);
     }
   }
+}
+
+//Filter Items
+
+function filterItems(e) {
+  //convert tet to lowercase
+  var text = e.target.value.toLowerCase();
+  //Get list
+  var items = itemList.getElementsByTagName("li");
+  //convert to an array
+  Array.from(items).forEach(function (item) {
+    var itemName = item.firstChild.textContent;
+    if (itemName.toLowerCase().indexOf(text) != -1) {
+      item.style.display = "block";
+    } else {
+      item.style.display = "none";
+    }
+  });
 }
